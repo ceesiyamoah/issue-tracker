@@ -52,7 +52,7 @@ const NewIssuePage = () => {
 				<Controller name='description' control={control} render={({ field }) => <SimpleMDE {...field} />} />
 				<ErrorMessage>{errors.description?.message}</ErrorMessage>
 
-				<Button disabled={isLoading} className='cursor-pointer'>
+				<Button disabled={isLoading} className='cursor-pointer' type='submit'>
 					Submit New Issue
 					{isLoading && <Spinner />}
 				</Button>
