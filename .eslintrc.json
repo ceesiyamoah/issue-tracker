@@ -3,6 +3,7 @@
 	"rules": {
 		"no-unused-labels": "warn",
 		"no-console": "warn",
-		"require-await": "warn"
+		"require-await": "warn",
+		"no-unused-vars": "warn"
 	}
 }
