@@ -5,8 +5,9 @@ import { Container, Theme } from '@radix-ui/themes';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import Navbar from './Navbar';
-import Provider from './_auth/Provider';
+import AuthProvider from './_auth/Provider';
 import { PropsWithChildren } from 'react';
+import QueryClientProvider from './QueryClientProvider';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
 
@@ -19,14 +20,16 @@ export default function RootLayout({ children }: PropsWithChildren) {
 	return (
 		<html lang='en'>
 			<body className={inter.variable}>
-				<Provider>
-					<Theme accentColor='violet' grayColor='slate' radius='small'>
-						<Navbar />
-						<main className='p-5'>
-							<Container>{children}</Container>
-						</main>
-					</Theme>
-				</Provider>
+				<QueryClientProvider>
+					<AuthProvider>
+						<Theme accentColor='violet' grayColor='slate' radius='small'>
+							<Navbar />
+							<main className='p-5'>
+								<Container>{children}</Container>
+							</main>
+						</Theme>
+					</AuthProvider>
+				</QueryClientProvider>
 			</body>
 		</html>
 	);
