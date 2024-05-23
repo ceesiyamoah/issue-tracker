@@ -18,10 +18,15 @@ const columns: { label: string; value: keyof Issue; className?: string }[] = [
 
 const IssuesPage = async ({ searchParams }: Props) => {
 	const checkedStatus = Object.values(Status).includes(searchParams.status) ? searchParams.status : undefined;
+	const orderBy = columns.map((col) => col.value).includes(searchParams.orderBy)
+		? { [searchParams.orderBy]: 'asc' }
+		: undefined;
+
 	const issues = await prisma.issue.findMany({
 		where: {
 			status: checkedStatus,
 		},
+		orderBy,
 	});
 
 	return (
