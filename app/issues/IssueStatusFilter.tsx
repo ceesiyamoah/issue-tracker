@@ -1,5 +1,5 @@
 'use client';
-import { Issue, Status } from '@prisma/client';
+import { Status } from '@prisma/client';
 import { Select } from '@radix-ui/themes';
 import { useRouter, useSearchParams } from 'next/navigation';
 
@@ -22,6 +22,7 @@ const IssueStatusFilter = () => {
 		searchParams.forEach((val, key) => {
 			params.set(key, val);
 		});
+		params.delete('page');
 		if (value !== 'all') {
 			params.set('status', value);
 		} else {
