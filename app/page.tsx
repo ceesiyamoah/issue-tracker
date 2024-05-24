@@ -1,9 +1,13 @@
-import Pagination from './components/Pagination';
+import prisma from '@/prisma/client';
+import IssueSummary from './IssueSummary';
+import LatestIssues from './LatestIssues';
 
-interface Props {
-	searchParams: { page: string };
-}
+export const dynamic = 'force-dynamic';
 
-export default function Home({ searchParams: { page } }: Props) {
-	return <Pagination currentPage={+page || 1} itemCount={101} pageSize={12} />;
+export default async function Home() {
+	const open = await prisma.issue.count({ where: { status: 'OPEN' } });
+	const closed = await prisma.issue.count({ where: { status: 'CLOSED' } });
+	const inProgress = await prisma.issue.count({ where: { status: 'IN_PROGRESS' } });
+
+	return <IssueSummary open={open} closed={closed} inProgress={inProgress} />;
 }
